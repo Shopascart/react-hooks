@@ -14,7 +14,6 @@ interface IQueryObj {
         staleTime?: number;
         cacheTime?: number;
     },
-    loader?: JSX.Element | null
 }
 import { useEffect, useState } from "react";
 import { QueryOptions, useQuery, UseQueryOptions } from "react-query";
@@ -34,7 +33,7 @@ export interface IAPIResponse<T> {
 /**
  * A React Component that displays data from useQuery hook
  */
-export default function UseQueryDisplayData<IData>({ queryObj, condition, callback, timeout, setters, refetch }: {
+export default function UseQueryDisplayData<IData>({ queryObj, condition, callback, timeout, setters, refetch, loader }: {
     queryObj: IQueryObj
     condition: (res: IAPIResponse<IData>) => boolean
     callback: {
@@ -48,8 +47,9 @@ export default function UseQueryDisplayData<IData>({ queryObj, condition, callba
         setData: (data: IData) => void,
     },
     refetch?: boolean
+    loader?: JSX.Element | null
 }) {
-    const { key, queryFn, options, loader } = queryObj;
+    const { key, queryFn, options } = queryObj;
     const { onLoading, onData, onEmpty, onError } = callback;
     const { isLoading, isError, data } = useQuery(key, queryFn, options);
     const { isLoading: _refetchLoading, isError: _refetchError, data: _refetchData } = useQuery(key, queryFn, options);
