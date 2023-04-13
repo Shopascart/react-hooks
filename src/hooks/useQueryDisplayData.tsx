@@ -34,7 +34,7 @@ export interface IAPIResponse<T> {
 /**
  * A React Component that displays data from useQuery hook
  */
-export default function UseQueryDisplayData<IData>({ queryObj, condition, callback, timeout, setters, refetch }: {
+export default function UseQueryDisplayData<IData>({ queryObj, condition, callback, timeout, setters, refetch, loader }: {
     queryObj: IQueryObj
     condition: (res: IAPIResponse<IData>) => boolean
     callback: {
@@ -47,6 +47,7 @@ export default function UseQueryDisplayData<IData>({ queryObj, condition, callba
     setters?: {
         setData: (data: IData) => void,
     },
+    loader?: JSX.Element | null,
     refetch?: boolean
 }) {
     const { key, queryFn, options } = queryObj;
@@ -55,8 +56,9 @@ export default function UseQueryDisplayData<IData>({ queryObj, condition, callba
     const { isLoading: _refetchLoading, isError: _refetchError, data: _refetchData } = useQuery(key, queryFn, options);
     const [loading, setLoading] = useState<boolean>(true);
     const _data = data as IAPIResponse<IData>;
-    const { loader, timeout: useTimeout } = useQueryDisplayDataContext().useQueryDisplayData;
-    const timeoutState = useTimeout || timeout;
+    const { loader: defaultLoader, timeout: defaultTimeout } = useQueryDisplayDataContext().useQueryDisplayData;
+    const loaderState = loader || defaultLoader;
+    const timeoutState = timeout || defaultTimeout;
     useEffect(() => {
         if (condition(_data)) {
             if (setters) {
@@ -72,7 +74,7 @@ export default function UseQueryDisplayData<IData>({ queryObj, condition, callba
     if (isLoading) {
         return (
             <div className="data-loader">
-                {loader ? loader : <div className="loader">Loading ....</div>}
+                {loaderState ? loaderState : <div className="loader">Loading ....</div>}
             </div>
         )
     }

@@ -2,7 +2,7 @@ import React, { createContext } from "react";
 export interface IHooksContextProps {
     useQueryDisplayData: {
         timeout?: [min: number, max: number],
-        loader?:  React.ReactNode;
+        loader?:  JSX.Element | null;
     }
 }
 
