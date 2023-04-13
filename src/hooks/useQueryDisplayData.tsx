@@ -18,6 +18,7 @@ interface IQueryObj {
 import { useEffect, useState } from "react";
 import { QueryOptions, useQuery, UseQueryOptions } from "react-query";
 import { GenerateRandomTimeOutNumber } from "../utils";
+import { useQueryDisplayDataContext } from "../context";
 
 export interface IAPIResponse<T> {
     data: T;
@@ -33,7 +34,7 @@ export interface IAPIResponse<T> {
 /**
  * A React Component that displays data from useQuery hook
  */
-export default function UseQueryDisplayData<IData>({ queryObj, condition, callback, timeout, setters, refetch, loader }: {
+export default function UseQueryDisplayData<IData>({ queryObj, condition, callback, timeout, setters, refetch }: {
     queryObj: IQueryObj
     condition: (res: IAPIResponse<IData>) => boolean
     callback: {
@@ -42,12 +43,11 @@ export default function UseQueryDisplayData<IData>({ queryObj, condition, callba
         onEmpty: () => JSX.Element | null,
         onError: (response: IAPIResponse<IData>) => JSX.Element | null
     }
-    timeout?: [number, number],
+    timeout?: [min: number, max: number],
     setters?: {
         setData: (data: IData) => void,
     },
     refetch?: boolean
-    loader?: JSX.Element | null
 }) {
     const { key, queryFn, options } = queryObj;
     const { onLoading, onData, onEmpty, onError } = callback;
@@ -55,7 +55,8 @@ export default function UseQueryDisplayData<IData>({ queryObj, condition, callba
     const { isLoading: _refetchLoading, isError: _refetchError, data: _refetchData } = useQuery(key, queryFn, options);
     const [loading, setLoading] = useState<boolean>(true);
     const _data = data as IAPIResponse<IData>;
-    
+    const { loader, timeout: useTimeout } = useQueryDisplayDataContext().useQueryDisplayData;
+    const timeoutState = useTimeout || timeout;
     useEffect(() => {
         if (condition(_data)) {
             if (setters) {
@@ -90,8 +91,8 @@ export default function UseQueryDisplayData<IData>({ queryObj, condition, callba
         }
     } else if (data) {
         if (condition(_data)) {
-            if (timeout) {
-                const [min, max] = timeout;
+            if (timeoutState) {
+                const [min, max] = timeoutState;
                 const time = GenerateRandomTimeOutNumber(min, max);
                 setTimeout(() => {
                     setLoading(false);

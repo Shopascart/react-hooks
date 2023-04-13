@@ -1,2 +1,4 @@
+
 import { UseQueryDisplayData, UseDisplayData, useLoader, IUseLoaderProps } from './hooks/';
-export { UseQueryDisplayData, UseDisplayData, useLoader, IUseLoaderProps };
+import HooksProvider, { useQueryDisplayDataContext , withUseQueryDisplayDataContext, IHooksContextProps} from './context';
+export { UseQueryDisplayData, UseDisplayData, useLoader, IUseLoaderProps, HooksProvider, useQueryDisplayDataContext, withUseQueryDisplayDataContext, IHooksContextProps };
