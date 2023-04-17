@@ -1,5 +1,5 @@
 interface IQueryObj {
-    key: Array<string | boolean>;
+    key: Array<string | boolean | number | any>;
     queryFn: ({ pageParam }: { pageParam?: number }) => Promise<any>;
     options?: {
         enabled: boolean;
