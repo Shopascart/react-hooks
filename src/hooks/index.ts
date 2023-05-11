@@ -1,3 +1,4 @@
 import UseQueryDisplayData, { UseDisplayData } from "./useQueryDisplayData";
 import useLoader, { IUseLoaderProps } from "./useLoader";
-export { UseQueryDisplayData, UseDisplayData, useLoader, IUseLoaderProps };
+import useMobile from "./useMobile";
+export { UseQueryDisplayData, UseDisplayData, useLoader, IUseLoaderProps, useMobile };

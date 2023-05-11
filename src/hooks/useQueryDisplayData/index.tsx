@@ -17,8 +17,8 @@ interface IQueryObj {
 }
 import { useEffect, useState } from "react";
 import { QueryOptions, useQuery, UseQueryOptions } from "react-query";
-import { GenerateRandomTimeOutNumber } from "../utils";
-import { useQueryDisplayDataContext } from "../context";
+import { GenerateRandomTimeOutNumber } from "../../utils";
+import { useQueryDisplayDataContext } from "../../context";
 
 export interface IAPIResponse<T> {
     data: T;

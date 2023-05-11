@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { GenerateRandomTimeOutNumber } from "../utils";
+import { GenerateRandomTimeOutNumber } from "../../utils";
 import { useEffect, useState } from "react";
 
 export interface IUseLoaderProps {
