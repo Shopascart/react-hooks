@@ -1,6 +1,6 @@
 {
     "name": "@shopascart/react-hooks",
-    "version": "1.1.0",
+    "version": "1.1.1",
     "description": "A collection of React Hooks for common use cases ",
     "main": "dist/cjs/index.js",
     "module": "dist/ts/index.js",
@@ -42,5 +42,8 @@
     "bugs": {
         "url": "https://github.com/Shopascart/react-hooks/issues"
     },
-    "homepage": "https://github.com/Shopascart/react-hooks/#readme"
+    "homepage": "https://github.com/Shopascart/react-hooks/#readme",
+    "publishConfig": {
+        "registry": "https://registry.npmjs.org/"
+      }
 }

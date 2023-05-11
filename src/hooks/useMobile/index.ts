@@ -4,13 +4,19 @@
  * Copyright (c) 2023 Shopascart
  */
 import { useState, useEffect } from "react";
+interface IUseMobile {
+    widthToDetect?: number;
+}
 /**
  * Detect if the device is in mobile view
  */
-export default function useMobile( { widthToDetect }: { widthToDetect?: number; }) {
+export default function useMobile(): { isMobile: boolean; width: number; };
+export default function useMobile({}): { isMobile: boolean; width: number; };
+export default function useMobile({ widthToDetect }: IUseMobile): { isMobile: boolean; width: number; };
+export default function useMobile(prop: IUseMobile = {}): { isMobile: boolean; width: number; } {
     const [isMobile, setIsMobile] = useState(false);
     const [width, setWidth] = useState(0);
-
+    
     const onResize = () => {
         const width = document.body.clientWidth;
         setWidth(width);
@@ -22,7 +28,7 @@ export default function useMobile( { widthToDetect }: { widthToDetect?: number; 
     }, []);
 
     useEffect(() => {
-        if (width <= (widthToDetect || 800)) {
+        if (width <= (prop.widthToDetect || 800)) {
             setIsMobile(true);
         } else {
             setIsMobile(false);
