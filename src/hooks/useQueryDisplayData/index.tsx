@@ -34,7 +34,7 @@ export interface IAPIResponse<T> {
 /**
  * A React Component that displays data from useQuery hook
  */
-export default function UseQueryDisplayData<IData>({ queryObj, condition, callback, timeout, setters, refetch, loader, useEmptyOnNull= true }: {
+export default function UseQueryDisplayData<IData>({ queryObj, condition, callback, timeout, setters, refetch, loader, useEmptyOnNull = false }: {
     queryObj: IQueryObj
     condition: (res: IAPIResponse<IData>) => boolean
     callback: {
