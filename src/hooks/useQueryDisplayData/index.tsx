@@ -34,7 +34,7 @@ export interface IAPIResponse<T> {
 /**
  * A React Component that displays data from useQuery hook
  */
-export default function UseQueryDisplayData<IData>({ queryObj, condition, callback, timeout, setters, refetch, loader }: {
+export default function UseQueryDisplayData<IData>({ queryObj, condition, callback, timeout, setters, refetch, loader, useEmptyOnNull= true }: {
     queryObj: IQueryObj
     condition: (res: IAPIResponse<IData>) => boolean
     callback: {
@@ -42,16 +42,18 @@ export default function UseQueryDisplayData<IData>({ queryObj, condition, callba
         onData: (data: IData) => JSX.Element | null,
         onEmpty: () => JSX.Element | null,
         onError: (response: IAPIResponse<IData>) => JSX.Element | null
+        onNull?: () => JSX.Element | null
     }
     timeout?: [min: number, max: number],
     setters?: {
         setData: (data: IData) => void,
     },
     loader?: JSX.Element | null,
-    refetch?: boolean
+    refetch?: boolean,
+    useEmptyOnNull?: boolean,
 }) {
     const { key, queryFn, options } = queryObj;
-    const { onLoading, onData, onEmpty, onError } = callback;
+    const { onLoading, onData, onEmpty, onError, onNull } = callback;
     const { isLoading, isError, data } = useQuery(key, queryFn, options);
     const { isLoading: _refetchLoading, isError: _refetchError, data: _refetchData } = useQuery(key, queryFn, options);
     const [loading, setLoading] = useState<boolean>(true);
@@ -64,6 +66,11 @@ export default function UseQueryDisplayData<IData>({ queryObj, condition, callba
             if (setters) {
                 const { setData } = setters;
                 setData(_data.data);
+            }
+        } else {
+            if (setters) {
+                const { setData } = setters;
+                setData(null as unknown as IData);
             }
         }
     }, [data]);
@@ -111,7 +118,7 @@ export default function UseQueryDisplayData<IData>({ queryObj, condition, callba
             return onEmpty();
         }
     }
-    return null;
+    return useEmptyOnNull ? onEmpty() : onNull ? onNull() : null;
 }
 
 export function UseDisplayData({ condition, callback }: {
