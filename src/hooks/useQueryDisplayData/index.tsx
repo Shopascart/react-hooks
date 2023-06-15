@@ -67,12 +67,7 @@ export default function UseQueryDisplayData<IData>({ queryObj, condition, callba
                 const { setData } = setters;
                 setData(_data.data);
             }
-        } else {
-            if (setters) {
-                const { setData } = setters;
-                setData(null as unknown as IData);
-            }
-        }
+        } 
     }, [data]);
 
    
