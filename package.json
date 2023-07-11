@@ -1,6 +1,6 @@
 {
     "name": "@shopascart/react-hooks",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "description": "A collection of React Hooks for common use cases ",
     "main": "dist/cjs/index.js",
     "module": "dist/ts/index.js",
