@@ -76,11 +76,7 @@ export default function UseQueryDisplayData<IData>({ queryObj, condition, callba
 
 
     if (isLoading) {
-        return (
-            <div className="data-loader">
-                {loaderState ? loaderState : <div className="loader">Loading ....</div>}
-            </div>
-        )
+        return loaderState ? loaderState : null;
     }
     else if (isError || _data?.status?.code && _data?.status?.code !== 200) {
         if (_data) {
