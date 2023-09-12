@@ -1,6 +1,6 @@
 {
     "name": "@shopascart/react-hooks",
-    "version": "1.3.0",
+    "version": "1.3.1",
     "description": "A collection of React Hooks for common use cases ",
     "main": "dist/cjs/index.js",
     "module": "dist/ts/index.js",
@@ -29,8 +29,7 @@
     },
     "peerDependencies": {
         "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "next": "^13.4.3"
+        "react-dom": "^18.2.0"
     },
     "dependencies": {
         "react-query": "^3.39.3"
